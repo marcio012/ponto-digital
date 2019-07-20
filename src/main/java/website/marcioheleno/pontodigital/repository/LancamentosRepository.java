@@ -1,0 +1,28 @@
+package website.marcioheleno.pontodigital.repository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+import website.marcioheleno.pontodigital.entities.Lancamento;
+
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import java.util.List;
+
+@Transactional(readOnly = true)
+@NamedQueries({
+    @NamedQuery(
+        name = "LancamentosRepository.findByFuncionarioId",
+        query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId"
+    )
+})
+public interface LancamentosRepository extends JpaRepository<Lancamento, String> {
+
+
+    List<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);
+    Page<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId, Pageable pageable);
+}
