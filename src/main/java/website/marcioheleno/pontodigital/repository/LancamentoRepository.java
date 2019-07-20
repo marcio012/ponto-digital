@@ -16,11 +16,11 @@ import java.util.List;
 @Transactional(readOnly = true)
 @NamedQueries({
     @NamedQuery(
-        name = "LancamentosRepository.findByFuncionarioId",
+        name = "LancamentoRepository.findByFuncionarioId",
         query = "SELECT lanc FROM Lancamento lanc WHERE lanc.funcionario.id = :funcionarioId"
     )
 })
-public interface LancamentosRepository extends JpaRepository<Lancamento, String> {
+public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
 
     List<Lancamento> findByFuncionarioId(@Param("funcionarioId") Long funcionarioId);
